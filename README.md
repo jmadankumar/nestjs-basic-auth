@@ -71,3 +71,19 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+### Road Map
+
+- [ ] Add Typeorm
+- [ ] Enable CORS
+- [ ] Add JDL file and screenshot
+- [ ] Add Role Table migration script and Role Entity
+- [ ] Add User table migration script and User Entity
+- [ ] Add User Mapping table migration script and UserRole Entity
+- [ ] Add User CRUD
+- [ ] Add username password login api
+- [ ] Add logout api
+- [ ] Add JWT based Authorization
+- [ ] Add Role based Authorization
+- [ ] Add Google login

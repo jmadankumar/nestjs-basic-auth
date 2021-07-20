@@ -1,0 +1,53 @@
+entity User{
+	id String unique required,
+    displayId Integer unique required,
+    
+    // user information
+    name String required,
+    email String,
+    gender String, // male, female or others
+    dob ZonedDateTime,
+    imageUrl String,
+    
+    // auth (mobile & password based login)
+    mobile String required,
+    password String required,
+    authProvider String required, // local or google
+    active Boolean required,
+
+    // otp
+    otp String,
+    otpExpiryTime String,
+    
+    // activation
+    activationToken String,
+    activationExpiryTime ZonedDateTime,
+    
+    // reset password
+    resetToken String,
+    resetExpiryTime ZonedDateTime,
+    
+    // audit detail
+    createdTime ZonedDateTime required,
+    createdBy Integer,
+    updatedTime ZonedDateTime required,
+    updatedBy Integer,
+    deleted Boolean required,
+}
+
+entity Role{
+	id String unique required,
+	name String required, // Super Admin, Admin, User
+}
+
+entity UserRole{
+    userId String required,
+    roledId String required,
+}
+
+relationship OneToMany {
+	// User mapping
+	User to UserRole,
+    // Role mapping
+    Role to UserRole,
+}

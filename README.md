@@ -75,9 +75,9 @@ Nest is [MIT licensed](LICENSE).
 
 ### Road Map
 
+- [x] Add database diagram and jdl format of database
 - [ ] Add Typeorm
 - [ ] Enable CORS
-- [ ] Add JDL file and screenshot
 - [ ] Add Role Table migration script and Role Entity
 - [ ] Add User table migration script and User Entity
 - [ ] Add User Mapping table migration script and UserRole Entity
@@ -87,3 +87,8 @@ Nest is [MIT licensed](LICENSE).
 - [ ] Add JWT based Authorization
 - [ ] Add Role based Authorization
 - [ ] Add Google login
+
+
+### JDL Studio
+
+- import jdl file from `docs/diagram` folder to [JDL Studio](https://start.jhipster.tech/jdl-studio/) to edit the diagram.

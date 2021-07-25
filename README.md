@@ -76,6 +76,7 @@ Nest is [MIT licensed](LICENSE).
 ### Road Map
 
 - [x] Add database diagram and jdl format of database
+- [x] Load environmnet properties using configuration service
 - [ ] Add Typeorm
 - [ ] Enable CORS
 - [ ] Add Role Table migration script and Role Entity

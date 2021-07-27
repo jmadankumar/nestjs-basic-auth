@@ -72,12 +72,12 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
-
 ### Road Map
 
 - [x] Add database diagram and jdl format of database
 - [x] Load environmnet properties using configuration service
-- [ ] Add Typeorm
+- [x] Add Typeorm
+- [ ] Add Logger
 - [ ] Enable CORS
 - [ ] Add Role Table migration script and Role Entity
 - [ ] Add User table migration script and User Entity
@@ -89,7 +89,34 @@ Nest is [MIT licensed](LICENSE).
 - [ ] Add Role based Authorization
 - [ ] Add Google login
 
-
 ### JDL Studio
 
 - import jdl file from `docs/diagram` folder to [JDL Studio](https://start.jhipster.tech/jdl-studio/) to edit the diagram.
+
+### Database migration
+
+Migration scripts are available in `src/migration` directory
+
+#### Create migration script
+
+```
+npx typeorm migration:create -n <filename>
+```
+
+#### Check list of migration which are executed and pending
+
+```
+npm run migration:show
+```
+
+#### Run migration
+
+```
+npm run migration:run
+```
+
+#### Revert migration
+
+```
+npm run migration:revert
+```

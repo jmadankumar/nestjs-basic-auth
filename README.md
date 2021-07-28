@@ -81,7 +81,7 @@ Nest is [MIT licensed](LICENSE).
   - [x] Use Winston logger
   - [x] In development mode, log messages to console
   - [x] Use Daily Rotate File transport to log messages in files and rotate files on daily basis.
-- [ ] Enable CORS
+- [x] Enable CORS
 - [ ] Add Role Table migration script and Role Entity
 - [ ] Add User table migration script and User Entity
 - [ ] Add User Mapping table migration script and UserRole Entity

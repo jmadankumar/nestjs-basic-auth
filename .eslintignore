@@ -1,2 +1,5 @@
+# Build
+dist
+
 #Typeorm
 ormconfig.js

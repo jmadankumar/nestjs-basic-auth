@@ -3,17 +3,20 @@ entity User{
     displayId Integer unique required,
     
     // user information
-    name String required,
-    email String,
+    firstName String required,
+    lastName String,
     gender String, // male, female or others
     dob ZonedDateTime,
     imageUrl String,
+    mobile String,
     
-    // auth (mobile & password based login)
-    mobile String required,
+    // auth (email & password based login)
+    email String unique required,
     password String required,
     authProvider String required, // local or google
     active Boolean required,
+    
+    
 
     // otp
     otp String,

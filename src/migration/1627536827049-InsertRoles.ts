@@ -1,4 +1,4 @@
-import { RoleEntity } from '../shared/modules/role/role.entity';
+import { RoleEntity } from 'src/entity/role.entity';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class InsertRoles1627536827049 implements MigrationInterface {

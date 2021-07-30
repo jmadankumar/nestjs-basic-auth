@@ -1,12 +1,13 @@
 import { AuthProvider } from 'src/enums/auth-provider.enum';
 import { Gender } from 'src/enums/gender.enum';
-import { UserEntity } from 'src/shared/modules/user/user.entity';
+import { UserEntity } from 'src/entity/user.entity';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class InsertUsers1627667120392 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.manager.getRepository(UserEntity).insert([
       {
+        id: 'c062d85b-1207-4be6-9c33-1386d192553b',
         firstName: 'admin',
         gender: Gender.MALE,
         email: 'admin@example.com',

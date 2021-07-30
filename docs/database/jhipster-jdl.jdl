@@ -1,6 +1,5 @@
 entity User{
 	id String unique required,
-    displayId Integer unique required,
     
     // user information
     firstName String required,
@@ -20,20 +19,20 @@ entity User{
 
     // otp
     otp String,
-    otpExpiryTime String,
+    otpExpiryDate String,
     
     // activation
     activationToken String,
-    activationExpiryTime ZonedDateTime,
+    activationTokenExpiryDate ZonedDateTime,
     
     // reset password
     resetToken String,
-    resetExpiryTime ZonedDateTime,
+    resetTokenExpiryDate ZonedDateTime,
     
     // audit detail
-    createdTime ZonedDateTime required,
+    createdDate ZonedDateTime required,
     createdBy Integer,
-    updatedTime ZonedDateTime required,
+    updatedDate ZonedDateTime required,
     updatedBy Integer,
     deleted Boolean required,
 }

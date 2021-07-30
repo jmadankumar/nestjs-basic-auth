@@ -83,8 +83,8 @@ Nest is [MIT licensed](LICENSE).
   - [x] Use Daily Rotate File transport to log messages in files and rotate files on daily basis.
 - [x] Enable CORS
 - [x] Add Role Table migration script and Role Entity
-- [ ] Add User table migration script and User Entity
-- [ ] Add User Mapping table migration script and UserRole Entity
+- [x] Add User table migration script and User Entity
+- [ ] Add User Role Mapping table migration script and UserRole Entity
 - [ ] Add User CRUD
 - [ ] Add username password login api
 - [ ] Add logout api

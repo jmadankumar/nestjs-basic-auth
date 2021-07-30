@@ -3,7 +3,7 @@ import { Gender } from 'src/enums/gender.enum';
 import { Column, Entity, Generated, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid', {
     name: 'id',
   })
@@ -48,7 +48,7 @@ export class User {
   @Column({ name: 'otp' })
   otp: string;
 
-  @Column({ name: 'otp_expiry_time' })
+  @Column({ name: 'otp_expiry_date' })
   otpExpiryDate: Date;
 
   @Column({ name: 'activation_token' })

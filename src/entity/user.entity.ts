@@ -1,10 +1,10 @@
 import { AuthProvider } from 'src/enums/auth-provider.enum';
 import { Gender } from 'src/enums/gender.enum';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { UserRoleEntity } from './user-role.entity';
+import { UserRole } from './user-role.entity';
 
 @Entity('users')
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn('uuid', {
     name: 'id',
   })
@@ -87,6 +87,6 @@ export class UserEntity {
   @Column({ name: 'deleted', default: false })
   deleted: boolean;
 
-  @OneToMany(() => UserRoleEntity, (userRole) => userRole.role)
-  userRoles: UserRoleEntity[];
+  @OneToMany(() => UserRole, (userRole) => userRole.user)
+  userRoles: UserRole[];
 }

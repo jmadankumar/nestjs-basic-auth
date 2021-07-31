@@ -23,13 +23,15 @@ export class UserController {
 
   @Get()
   async findAll(): Promise<UserDto[]> {
-    return this.userService.findAll();
+    const users = await this.userService.findAll();
+    return users.map((user) => UserDto.from(user));
   }
 
   @Get('/:id')
   @ApiResponse({ status: 404, description: 'User not found' })
   async findOne(@Param('id') id: string): Promise<UserDto> {
-    return this.userService.findOne(id);
+    const user = await this.userService.findOne(id);
+    return UserDto.from(user);
   }
 
   @Post()
@@ -40,7 +42,7 @@ export class UserController {
     const user = await this.userService.create(createUserDto);
     return {
       message: 'User created',
-      user,
+      user: UserDto.from(user),
     };
   }
 
@@ -54,7 +56,7 @@ export class UserController {
     const user = await this.userService.update(id, updateUserDto);
     return {
       message: 'User created',
-      user,
+      user: UserDto.from(user),
     };
   }
 

@@ -8,7 +8,7 @@ export class BCryptService {
 
   async createPasswordHash(password: string): Promise<string> {
     const saltRound = this.configService.get('PASSWORD_SALT') || 10;
-    return bcrypt.hash(password, saltRound);
+    return bcrypt.hash(password, +saltRound);
   }
 
   async comparePassword(

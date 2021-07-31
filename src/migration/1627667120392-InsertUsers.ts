@@ -11,7 +11,8 @@ export class InsertUsers1627667120392 implements MigrationInterface {
         firstName: 'admin',
         gender: Gender.MALE,
         email: 'admin@example.com',
-        password: '',
+        password:
+          '$2b$10$O9rjrJm70GBVU0ISTMKl1ODzfPQOtnw2HRHi1fp/ZiR.U02bMzEY.', // Admin@123
         authProvider: AuthProvider.LOCAL,
         active: true,
         deleted: false,

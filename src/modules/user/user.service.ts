@@ -18,7 +18,7 @@ export class UserService {
     private userRoleService: UserRoleService,
   ) {}
 
-  async create(createUserDTO: CreateUserDto): Promise<UserDto> {
+  async create(createUserDTO: CreateUserDto): Promise<User> {
     const user = CreateUserDto.toUser(createUserDTO);
 
     const createdUser = await this.userRepository.save({
@@ -34,7 +34,7 @@ export class UserService {
     return this.findOne(createdUser.id);
   }
 
-  async update(id: string, updateUserDTO: UpdateUserDto): Promise<UserDto> {
+  async update(id: string, updateUserDTO: UpdateUserDto): Promise<User> {
     const userToUpdate = await this.userRepository.findOne(id);
 
     if (id !== updateUserDTO.id) {
@@ -62,7 +62,7 @@ export class UserService {
     return this.findOne(id);
   }
 
-  async findAll(): Promise<UserDto[]> {
+  async findAll(): Promise<User[]> {
     const queryBuilder = await this.userRepository.createQueryBuilder('users');
 
     queryBuilder
@@ -73,10 +73,10 @@ export class UserService {
 
     const users = await queryBuilder.getMany();
 
-    return users.map((user) => UserDto.from(user));
+    return users;
   }
 
-  async findOne(id: string): Promise<UserDto> {
+  async findOne(id: string): Promise<User> {
     const user = await this.userRepository.findOne(id, {
       join: {
         alias: 'user',
@@ -86,7 +86,7 @@ export class UserService {
         },
       },
     });
-    return UserDto.from(user);
+    return user;
   }
 
   async delete(id: string): Promise<void> {
@@ -102,5 +102,19 @@ export class UserService {
     if (!updateResult) {
       throw new BadRequestException('Unable to delete user');
     }
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { email },
+      join: {
+        alias: 'user',
+        leftJoinAndSelect: {
+          roles: 'user.userRoles',
+          role: 'roles.role',
+        },
+      },
+    });
+    return user;
   }
 }

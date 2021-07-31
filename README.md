@@ -85,12 +85,12 @@ Nest is [MIT licensed](LICENSE).
 - [x] Add Role Table migration script and Role Entity
 - [x] Add User table migration script and User Entity
 - [x] Add User Role Mapping table migration script and UserRole Entity
-- [ ] Add User CRUD
+- [x] Add User CRUD
+- [x] Swagger integration
 - [ ] Add username password login api
 - [ ] Add logout api
 - [ ] Add JWT based Authorization
 - [ ] Add Role based Authorization
-- [ ] Swagger integration
 - [ ] Add Google login
 
 ### JDL Studio

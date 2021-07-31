@@ -88,6 +88,7 @@ Nest is [MIT licensed](LICENSE).
 - [x] Add User CRUD
 - [x] Swagger integration
 - [x] Bcrypt Integration for password hashing
+- [x] JWT Integration
 - [ ] Add username password login api
 - [ ] Add logout api
 - [ ] Add JWT based Authorization

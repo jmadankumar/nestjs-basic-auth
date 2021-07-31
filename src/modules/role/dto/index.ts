@@ -1,1 +1,1 @@
-export * from './RoleDto';
+export * from './role.dto';

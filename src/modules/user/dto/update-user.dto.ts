@@ -1,6 +1,6 @@
 import { User } from 'src/entity/user.entity';
 import { Gender } from 'src/enums/gender.enum';
-import { RoleDto } from '../../role/dto/RoleDto';
+import { RoleDto } from '../../role/dto';
 
 export class UpdateUserDto {
   id: string;

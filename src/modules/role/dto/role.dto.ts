@@ -10,4 +10,11 @@ export class RoleDto {
     roleDto.name = role.name;
     return roleDto;
   }
+
+  static toUser(roleDto: RoleDto): Role {
+    const role = new Role();
+    role.id = roleDto.id;
+    role.name = roleDto.name;
+    return role;
+  }
 }

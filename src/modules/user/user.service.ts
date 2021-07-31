@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entity/user.entity';
 import { AuthProvider } from 'src/enums/auth-provider.enum';
 import { Repository } from 'typeorm';
+import { UserRoleService } from '../user-role/user-role.service';
 import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
 
 @Injectable()
@@ -14,6 +15,7 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private userRoleService: UserRoleService,
   ) {}
 
   async create(createUserDTO: CreateUserDto): Promise<UserDto> {
@@ -23,14 +25,20 @@ export class UserService {
       ...user,
       authProvider: AuthProvider.LOCAL,
     });
-    return UserDto.from(createdUser);
+
+    await this.userRoleService.updateUserRoles(
+      createdUser.id,
+      createUserDTO.roles,
+    );
+
+    return this.findOne(createdUser.id);
   }
 
   async update(id: string, updateUserDTO: UpdateUserDto): Promise<UserDto> {
     const userToUpdate = await this.userRepository.findOne(id);
 
     if (id !== updateUserDTO.id) {
-      throw new BadRequestException('Cannot update user');
+      throw new BadRequestException('User update failed');
     }
 
     if (!userToUpdate) {
@@ -48,6 +56,8 @@ export class UserService {
     if (!updateResult) {
       throw new BadRequestException('User update failed');
     }
+
+    await this.userRoleService.updateUserRoles(id, updateUserDTO.roles);
 
     return this.findOne(id);
   }

@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './modules/user/user.module';
+import { UserRoleModule } from './modules/user-role/user-role.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { UserModule } from './modules/user/user.module';
     TypeOrmModule.forRoot(),
     SharedModule,
     UserModule,
+    UserRoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,24 +1,27 @@
 import {
   Controller,
+  Get,
   InternalServerErrorException,
   Param,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiHeader, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { Messages } from 'src/config/messages';
 import { User } from 'src/entity/user.entity';
 import { LocalAuthGuard } from 'src/guards/local-auth.guard';
 import { JwtPayload } from 'src/interfaces';
 import { BCryptService } from 'src/shared/providers/bcrypt.service';
-import { JwtService } from 'src/shared/providers/jwt.service';
 import { UserDto } from '../user/dto';
 import { LoginOptions, LoginResponse, LogoutResponse } from './dto';
+import { JwtService } from '@nestjs/jwt';
+import { JwtAuthGuard } from 'src/guards/jwt.guard';
+import { CurrentUser } from 'src/decorators/current-user';
 
 @ApiTags('auth')
-@Controller('auth')
+@Controller()
 export class AuthController {
   constructor(
     private jwtService: JwtService,
@@ -27,7 +30,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @ApiBody({ type: LoginOptions })
-  @Post('login')
+  @Post('auth/login')
   async login(@Req() req: Request): Promise<LoginResponse> {
     try {
       const user = req.user as User;
@@ -49,15 +52,22 @@ export class AuthController {
     }
   }
 
-  @Post('logout')
+  @Post('auth/logout')
   async logout(): Promise<LogoutResponse> {
     return { message: Messages.LOGOUT_SUCCESS };
   }
 
-  @Post('hash-password/:password')
+  @Post('auth/hash-password/:password')
   async createHashPassword(
     @Param('password') password: string,
   ): Promise<string> {
     return this.bcryptService.createPasswordHash(password);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  @ApiBearerAuth()
+  async getProfile(@CurrentUser() user: UserDto): Promise<UserDto> {
+    return user;
   }
 }

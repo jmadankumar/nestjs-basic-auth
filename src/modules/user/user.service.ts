@@ -8,7 +8,7 @@ import { User } from 'src/entity/user.entity';
 import { AuthProvider } from 'src/enums/auth-provider.enum';
 import { Repository } from 'typeorm';
 import { UserRoleService } from '../user-role/user-role.service';
-import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
+import { CreateUserDto, UpdateUserDto } from './dto';
 
 @Injectable()
 export class UserService {

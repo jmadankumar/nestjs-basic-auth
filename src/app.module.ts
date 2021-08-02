@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { UserModule } from './modules/user/user.module';
 import { UserRoleModule } from './modules/user-role/user-role.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { RoleModule } from './modules/role/role.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './modules/auth/auth.module';
     TypeOrmModule.forRoot(),
     SharedModule,
     UserModule,
+    RoleModule,
     UserRoleModule,
     AuthModule,
   ],

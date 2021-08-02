@@ -1,6 +1,7 @@
 import { User } from 'src/entity/user.entity';
 import { Gender } from 'src/enums/gender.enum';
 import { RoleDto } from '../../role/dto';
+import { UserDto } from './user.dto';
 
 export class CreateUserDto {
   firstName: string;
@@ -23,4 +24,9 @@ export class CreateUserDto {
     user.email = createUserDto.email;
     return user;
   }
+}
+
+export class CreateUserResponse {
+  message: string;
+  user: UserDto;
 }

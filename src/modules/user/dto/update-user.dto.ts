@@ -1,6 +1,7 @@
 import { User } from 'src/entity/user.entity';
 import { Gender } from 'src/enums/gender.enum';
 import { RoleDto } from '../../role/dto';
+import { UserDto } from './user.dto';
 
 export class UpdateUserDto {
   id: string;
@@ -25,4 +26,9 @@ export class UpdateUserDto {
     user.email = updateUserDto.email;
     return user;
   }
+}
+
+export class UpdateUserResponse {
+  message: string;
+  user: UserDto;
 }

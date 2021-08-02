@@ -7,12 +7,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
 import {
+  CreateUserDto,
+  UpdateUserDto,
+  UserDto,
   CreateUserResponse,
   UpdateUserResponse,
   DeleteUserResponse,
-} from './response';
+} from './dto';
 import { UserService } from './user.service';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
@@ -35,7 +37,11 @@ export class UserController {
   }
 
   @Post()
-  @ApiResponse({ status: 201, description: 'User created' })
+  @ApiResponse({
+    status: 201,
+    description: 'User created',
+    type: CreateUserDto,
+  })
   async create(
     @Body() createUserDto: CreateUserDto,
   ): Promise<CreateUserResponse> {

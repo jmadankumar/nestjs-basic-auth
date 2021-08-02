@@ -1,8 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Messages } from 'src/config/messages';
 import { User } from 'src/entity/user.entity';
 import { BCryptService } from 'src/shared/providers/bcrypt.service';
 import { UserService } from '../user/user.service';
-import { LoginOptions } from './dto/login.dto';
+import { LoginOptions } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,13 +16,13 @@ export class AuthService {
     const { email, password } = options;
 
     if (!email || !password) {
-      throw new BadRequestException('Invalid email or password');
+      throw new UnauthorizedException(Messages.INVALID_USERNAME_PASSWORD);
     }
 
     const user = await this.userService.findOneByEmail(email);
 
     if (!user) {
-      throw new BadRequestException('Invalid email or password');
+      throw new UnauthorizedException(Messages.INVALID_USERNAME_PASSWORD);
     }
 
     const isPasswordMatching = await this.bcryptService.comparePassword(
@@ -30,10 +31,12 @@ export class AuthService {
     );
 
     if (!isPasswordMatching) {
-      throw new BadRequestException('Invalid email or password');
+      throw new UnauthorizedException(Messages.INVALID_USERNAME_PASSWORD);
     }
     return user;
   }
 
-  async logout() {}
+  async logout() {
+    return true;
+  }
 }

@@ -1,32 +1,36 @@
 import {
-  Body,
   Controller,
   InternalServerErrorException,
   Param,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
+import { Messages } from 'src/config/messages';
+import { User } from 'src/entity/user.entity';
+import { LocalAuthGuard } from 'src/guards/local-auth.guard';
 import { JwtPayload } from 'src/interfaces';
 import { BCryptService } from 'src/shared/providers/bcrypt.service';
 import { JwtService } from 'src/shared/providers/jwt.service';
 import { UserDto } from '../user/dto';
-import { AuthService } from './auth.service';
-import { LoginOptions } from './dto/login.dto';
-import { LoginResponse, LogoutResponse } from './response';
+import { LoginOptions, LoginResponse, LogoutResponse } from './dto';
 
-@Controller('auth')
 @ApiTags('auth')
+@Controller('auth')
 export class AuthController {
   constructor(
-    private authService: AuthService,
     private jwtService: JwtService,
     private bcryptService: BCryptService,
   ) {}
 
+  @UseGuards(LocalAuthGuard)
+  @ApiBody({ type: LoginOptions })
   @Post('login')
-  async login(@Body() options: LoginOptions): Promise<LoginResponse> {
+  async login(@Req() req: Request): Promise<LoginResponse> {
     try {
-      const user = await this.authService.login(options);
+      const user = req.user as User;
       const userDto = UserDto.from(user);
 
       const payload: JwtPayload = {
@@ -36,18 +40,18 @@ export class AuthController {
       const jwtToken = await this.jwtService.sign(payload);
 
       return {
-        message: 'Successful login',
+        message: Messages.LOGIN_SUCCESS,
         user: userDto,
         token: jwtToken,
       };
     } catch (error) {
-      throw new InternalServerErrorException('Unable to login');
+      throw new InternalServerErrorException(Messages.LOGIN_ERROR);
     }
   }
 
   @Post('logout')
   async logout(): Promise<LogoutResponse> {
-    return { message: 'Successfull logout' };
+    return { message: Messages.LOGOUT_SUCCESS };
   }
 
   @Post('hash-password/:password')

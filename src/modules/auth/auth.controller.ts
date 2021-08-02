@@ -7,7 +7,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { Messages } from 'src/config/messages';
 import { User } from 'src/entity/user.entity';
@@ -18,7 +18,10 @@ import { UserDto } from '../user/dto';
 import { LoginOptions, LoginResponse, LogoutResponse } from './dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtAuthGuard } from 'src/guards/jwt.guard';
-import { CurrentUser } from 'src/decorators/current-user';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { Roles } from 'src/decorators/roles.decorator';
+import { RoleEnum } from 'src/enums/role.enum';
+import { RoleGuard } from 'src/guards/role.guard';
 
 @ApiTags('auth')
 @Controller()
@@ -28,9 +31,9 @@ export class AuthController {
     private bcryptService: BCryptService,
   ) {}
 
-  @UseGuards(LocalAuthGuard)
   @ApiBody({ type: LoginOptions })
   @Post('auth/login')
+  @UseGuards(LocalAuthGuard)
   async login(@Req() req: Request): Promise<LoginResponse> {
     try {
       const user = req.user as User;
@@ -52,12 +55,17 @@ export class AuthController {
     }
   }
 
+  @ApiBearerAuth()
   @Post('auth/logout')
+  @UseGuards(JwtAuthGuard)
   async logout(): Promise<LogoutResponse> {
     return { message: Messages.LOGOUT_SUCCESS };
   }
 
+  @ApiBearerAuth()
   @Post('auth/hash-password/:password')
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RoleGuard)
   async createHashPassword(
     @Param('password') password: string,
   ): Promise<string> {

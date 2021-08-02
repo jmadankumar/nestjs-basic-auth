@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import {
   CreateUserDto,
@@ -16,10 +17,17 @@ import {
   DeleteUserResponse,
 } from './dto';
 import { UserService } from './user.service';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/guards/jwt.guard';
+import { RoleGuard } from 'src/guards/role.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { RoleEnum } from 'src/enums/role.enum';
 
 @ApiTags('users')
 @Controller('users')
+@Roles(RoleEnum.ADMIN)
+@UseGuards(JwtAuthGuard, RoleGuard)
+@ApiBearerAuth()
 export class UserController {
   constructor(private userService: UserService) {}
 

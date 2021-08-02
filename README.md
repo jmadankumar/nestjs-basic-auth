@@ -91,8 +91,8 @@ Nest is [MIT licensed](LICENSE).
 - [x] JWT Integration
 - [x] Add username password login api
 - [ ] Add logout api
-- [ ] Add JWT based Authorization
-- [ ] Add Role based Authorization
+- [x] Add JWT based Authorization
+- [x] Add Role based Authorization
 - [ ] Add Google login
 
 ### JDL Studio

@@ -16,8 +16,8 @@ async function bootstrap() {
   });
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('India One Visibility Hub API')
-    .setDescription('India One Visibility Hub API Swagger documentation')
+    .setTitle('API')
+    .setDescription('API Swagger documentation')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
